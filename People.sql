@@ -1,20 +1,19 @@
 CREATE DATABASE IF NOT EXISTS People;
-
 USE People;
 
-CREATE TABLE User (
+CREATE TABLE IF NOT EXISTS User (
     User_ID INT AUTO_INCREMENT PRIMARY KEY ,
     User_Name varchar(100),
     Pass_word varchar(100),
     Email_Adress varchar(200) 
 );
 
--- INSERT INTO User(User_Name, Pass_word, Email_Adress) 
--- VALUES 
---         ('MERIEM','200001','merrybalibla@gmail.com');
-        
+INSERT INTO User(User_Name, Pass_word, Email_Adress) 
+VALUES 
+        ('MERIEM','200001','merrybalibla@gmail.com'),
+        ('CHYPPO','200001','CHYPPOuser@gmail.com');
 
-CREATE TABLE Testimonials(
+CREATE TABLE IF NOT EXISTS Testimonials(
     Testimonials_ID INT PRIMARY KEY AUTO_INCREMENT,
     Comment VARCHAR(225),
     User_ID INT,
@@ -22,36 +21,39 @@ CREATE TABLE Testimonials(
 
 );
 
--- INSERT INTO Testimonials (Comment, User_ID) 
--- VALUES 
---         ('HELLO WORLD',1);
+INSERT INTO Testimonials (Comment, User_ID) 
+VALUES 
+        ('HELLO WORLD',1);
 
-CREATE TABLE Categories (
+CREATE TABLE IF NOT EXISTS Categories (
     Categorie_ID INT PRIMARY KEY AUTO_INCREMENT,
     Categorie_Name VARCHAR(100)
 );
 
--- INSERT INTO Categories (Categorie_Name) 
--- VALUES
---         ('Mecanical'),
---         ('Electrical');
+INSERT INTO Categories (Categorie_Name) 
+VALUES
+        ('Programming'),
+        ('Programming'),
+        ('Programming'),
+        ('Mecanical'),
+        ('Electrical');
 
-CREATE TABLE Sub_Categories (
+CREATE TABLE IF NOT EXISTS Sub_Categories (
     Sub_Categories_ID INT PRIMARY KEY AUTO_INCREMENT,
     Sub_Categories_Name VARCHAR(100),
     Categorie_ID INT,
     FOREIGN KEY (Categorie_ID) REFERENCES Categories(Categorie_ID)
 );
 
--- INSERT INTO Sub_Categories (Sub_Categories_Name, Categorie_ID) 
--- VALUES
---         ('MEC DE BASE',1),
---         ('ELECRIQUE',2);
+INSERT INTO Sub_Categories (Sub_Categories_Name, Categorie_ID) 
+VALUES
+        ('MEC DE BASE',1),
+        ('ELECRIQUE',2);
 
-CREATE TABLE Project (
+CREATE TABLE IF NOT EXISTS Project (
     Project_ID INT PRIMARY KEY AUTO_INCREMENT,
     Project_title VARCHAR(100),
-    Description VARCHAR(225),
+    Descriptions VARCHAR(225),
     Categorie_ID INT,
     FOREIGN KEY (Categorie_ID) REFERENCES Categories(Categorie_ID),
     Sub_Categories_ID INT,
@@ -60,11 +62,11 @@ CREATE TABLE Project (
     FOREIGN KEY (User_ID) REFERENCES User(User_ID)
 );
 
--- INSERT INTO Project (Project_title, Description, Categorie_ID, Sub_Categories_ID, User_ID)
--- VALUES 
---         ('MAZE GAME','funny game lol', 1, 1, 1);
+INSERT INTO Project (Project_title, Descriptions, Categorie_ID, Sub_Categories_ID, User_ID)
+VALUES 
+        ('MAZE GAME','funny game lol', 1, 1, 1);
 
-CREATE TABLE Freelencers(
+CREATE TABLE IF NOT EXISTS Freelencers(
     Freelencer_ID INT PRIMARY KEY AUTO_INCREMENT,
     Freelencer_Name VARCHAR(100),
     Skils VARCHAR(225),
@@ -72,11 +74,11 @@ CREATE TABLE Freelencers(
     FOREIGN KEY (User_ID) REFERENCES User(User_ID)
 );
 
--- INSERT INTO Freelencers(Freelencer_Name, Skils, User_ID)
--- VALUES
---         ('JACK SPPAROW', 'PIRATE', 1);
+INSERT INTO Freelencers(Freelencer_Name, Skils, User_ID)
+VALUES
+        ('JACK SPPAROW', 'PIRATE', 1);
 
-CREATE TABLE Offres(
+CREATE TABLE IF NOT EXISTS Offres(
     Offre_ID INT PRIMARY KEY AUTO_INCREMENT,
     Montant DECIMAL(10,2),
     Deadline DATE,
@@ -86,6 +88,31 @@ CREATE TABLE Offres(
     FOREIGN KEY (Project_ID) REFERENCES Project(Project_ID)
 );
 
--- INSERT INTO Offres(Montant, Deadline, Freelencer_ID, Project_ID)
--- VALUES 
-        
+-- Challenge: Retrieve usernames and email addresses of all users from the 'Utilisateurs' table.
+-- SELECT User_Name,Email_Adress FROM User
+
+-- Challenge: Fetch project titles and descriptions from the 'Projets' table where the project category is 'Programming'.
+-- SELECT Project_title, Descriptions
+-- FROM Project
+-- JOIN Categories ON Project.Categorie_ID = Categories.Categorie_ID
+-- WHERE Categories.Categorie_Name = 'Programming';
+-- LIMIT 1
+
+-- Challenge: Count the total number of testimonials in the 'Témoignages' table.
+-- SELECT COUNT(*)
+-- FROM Testimonials
+
+-- Challenge: Retrieve distinct categories available in the 'Catégories' table.
+-- SELECT DISTINCT Categorie_Name FROM categories
+
+SELECT COUNT(*)
+FROM categories
+WHERE Categorie_Name = 'Programming'
+
+-- SELECT COUNT(*)
+-- FROM categories
+-- WHERE Categorie_Name = 'Mecanical'
+
+-- SELECT COUNT(*)
+-- FROM categories
+-- WHERE Categorie_Name = 'Electrical'
