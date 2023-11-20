@@ -1,4 +1,5 @@
-CREATE DATABASE PeoplePerTask;
+DROP DATABASE PeoplePerTask;
+CREATE DATABASE if NOT exists PeoplePerTask;
 
 USE PeoplePerTask;
 -- Création de la table User
@@ -13,7 +14,8 @@ CREATE TABLE IF NOT EXISTS User (
 INSERT INTO User (User_Name, Pass_word, Email_Adress)
 VALUES 
     ('MERIEM', '200001', 'merrybalibla@gmail.com'),
-    ('CHYPPO', '200001', 'CHYPPOuser@gmail.com');
+    ('CHYPPO', '200001', 'CHYPPOuser@gmail.com'),
+	 ('Admin', '667', 'ADMIN@outlook.fr');
 
 -- Création de la table Testimonials
 CREATE TABLE IF NOT EXISTS Testimonials (
@@ -51,9 +53,8 @@ VALUES
         ('MEC DE BASE',1),
         ('ELECRIQUE',2),
 		('RDM',3),
-		('Mec de solide',4),
-		('Leader',5);
-SELECT * FROM Sub_Categories LIMIT 5;
+		('Mec de solide',1),
+		('Leader',2);
 
 CREATE TABLE IF NOT EXISTS Project (
     Project_ID INT PRIMARY KEY AUTO_INCREMENT,
