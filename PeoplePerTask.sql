@@ -1,29 +1,32 @@
-CREATE DATABASE IF NOT EXISTS People;
-USE People;
+CREATE DATABASE PeoplePerTask;
 
+USE PeoplePerTask;
+-- Création de la table User
 CREATE TABLE IF NOT EXISTS User (
-    User_ID INT AUTO_INCREMENT PRIMARY KEY ,
-    User_Name varchar(100),
-    Pass_word varchar(100),
-    Email_Adress varchar(200) 
+    User_ID INT AUTO_INCREMENT PRIMARY KEY,
+    User_Name VARCHAR(100),
+    Pass_word VARCHAR(100),
+    Email_Adress VARCHAR(200)
 );
 
-INSERT INTO User(User_Name, Pass_word, Email_Adress) 
+-- Insertion de données dans la table User
+INSERT INTO User (User_Name, Pass_word, Email_Adress)
 VALUES 
-        ('MERIEM','200001','merrybalibla@gmail.com'),
-        ('CHYPPO','200001','CHYPPOuser@gmail.com');
+    ('MERIEM', '200001', 'merrybalibla@gmail.com'),
+    ('CHYPPO', '200001', 'CHYPPOuser@gmail.com');
 
-CREATE TABLE IF NOT EXISTS Testimonials(
+-- Création de la table Testimonials
+CREATE TABLE IF NOT EXISTS Testimonials (
     Testimonials_ID INT PRIMARY KEY AUTO_INCREMENT,
     Comment VARCHAR(225),
     User_ID INT,
     FOREIGN KEY (User_ID) REFERENCES User(User_ID)
-
 );
 
-INSERT INTO Testimonials (Comment, User_ID) 
+-- Insertion de données dans la table Testimonials
+INSERT INTO Testimonials (Comment, User_ID)
 VALUES 
-        ('HELLO WORLD',1);
+    ('HELLO WORLD', 1);
 
 CREATE TABLE IF NOT EXISTS Categories (
     Categorie_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -32,8 +35,6 @@ CREATE TABLE IF NOT EXISTS Categories (
 
 INSERT INTO Categories (Categorie_Name) 
 VALUES
-        ('Programming'),
-        ('Programming'),
         ('Programming'),
         ('Mecanical'),
         ('Electrical');
@@ -48,7 +49,11 @@ CREATE TABLE IF NOT EXISTS Sub_Categories (
 INSERT INTO Sub_Categories (Sub_Categories_Name, Categorie_ID) 
 VALUES
         ('MEC DE BASE',1),
-        ('ELECRIQUE',2);
+        ('ELECRIQUE',2),
+		('RDM',3),
+		('Mec de solide',4),
+		('Leader',5);
+SELECT * FROM Sub_Categories LIMIT 5;
 
 CREATE TABLE IF NOT EXISTS Project (
     Project_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -64,7 +69,8 @@ CREATE TABLE IF NOT EXISTS Project (
 
 INSERT INTO Project (Project_title, Descriptions, Categorie_ID, Sub_Categories_ID, User_ID)
 VALUES 
-        ('MAZE GAME','funny game lol', 1, 1, 1);
+        ('MAZE GAME','funny game lol', 1, 1, 1),
+		('COnnectFOUR','NOne', 2, 2, 2);
 
 CREATE TABLE IF NOT EXISTS Freelencers(
     Freelencer_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -87,7 +93,7 @@ CREATE TABLE IF NOT EXISTS Offres(
     Project_ID INT,
     FOREIGN KEY (Project_ID) REFERENCES Project(Project_ID)
 );
-
+-- SELECT DISTINCT Project_ID, Project_title, Descriptions FROM Project LIMIT 2;
 -- Challenge: Retrieve usernames and email addresses of all users from the 'Utilisateurs' table.
 -- SELECT User_Name,Email_Adress FROM User
 
@@ -105,14 +111,3 @@ CREATE TABLE IF NOT EXISTS Offres(
 -- Challenge: Retrieve distinct categories available in the 'Catégories' table.
 -- SELECT DISTINCT Categorie_Name FROM categories
 
-SELECT COUNT(*)
-FROM categories
-WHERE Categorie_Name = 'Programming'
-
--- SELECT COUNT(*)
--- FROM categories
--- WHERE Categorie_Name = 'Mecanical'
-
--- SELECT COUNT(*)
--- FROM categories
--- WHERE Categorie_Name = 'Electrical'
